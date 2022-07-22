@@ -17,30 +17,31 @@ For example:
 const number0 = 2017;
 const number1 = 513;
 const number2 = 12;
-const number3 = 1234567980;
+const number3 = 85294; // 85429
+const number4 = 654321;
 
 function nextBigger(n) {
-  const arr = String(n).split('');
-  let howMany = 0;
-  let rememberPlace = 0;
-  let flag = false;
-  arr.forEach(function (numb, j, arr) {
-    if (arr[j] < arr[j + 1]) {
-      rememberPlace = j;
-      howMany++;
-      flag = true;
-    }
-  });
+  const arr0 = Array.from(String(n), Number);
+  let remLeftInd = 0;
 
-  if (flag == false) return -1;
-  const tmp1 = arr[rememberPlace];
-  const tmp2 = arr[rememberPlace + 1];
-  arr[rememberPlace + 1] = tmp1;
-  arr[rememberPlace] = tmp2;
-  const res = Number(arr.join(''));
-  console.log('how many = ' + howMany);
-  console.log(rememberPlace);
-  return res;
+  const doTheSwipe = function (i, array) {
+    let tmpH = array[i];
+    let tmpL = array[i - 1];
+    array[i] = tmpL;
+    array[i - 1] = tmpH;
+    return array;
+  };
+
+  console.log(arr0);
+  for (let i = arr0.length - 1; i >= 0; i--) {
+    console.log('second ' + arr0[i]);
+    if (arr0[i] > arr0[i - 1]) {
+      remLeftInd = i;
+      doTheSwipe(i, arr0);
+      console.log(arr0);
+      break;
+    }
+  }
 }
 
 console.log(nextBigger(number3));
